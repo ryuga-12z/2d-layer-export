@@ -1,0 +1,21 @@
+{
+    "name": "ToonExporter.Runtime",
+    "rootNamespace": "ToonExporter.Runtime",
+    "references": [
+        "ToonExporter.Core",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.InputSystem",
+        "USFB.Runtime",
+        "USFB.Runtime.Common"
+
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,1009 @@
+/* ============================================================
+ * ToonExporterPanel.uss -- パネル骨格・全ウィジェットのスタイル定義
+ * ============================================================
+ * 必要フォント（手動配置・未配置時は Unity フォールバックで表示）:
+ *   Assets/ToonExporter/Runtime/UI/Fonts/NotoSansJP-Regular.ttf
+ *   Assets/ToonExporter/Runtime/UI/Fonts/JetBrainsMono-Regular.ttf
+ * ============================================================ */
+
+/* --- デザイントークン（カラー） --- */
+:root {
+    /* アクセント（ミント） */
+    --toon-accent:        #2dd4bf;
+    --toon-accent-hover:  #5fe3d3;
+    --toon-accent-ink:    #07332d;
+
+    /* 背景（フロート＝半透明ガラス） */
+    --toon-panel-bg:        rgba(18, 19, 30, 0.8);
+    --toon-title-bg:        rgba(30, 32, 45, 0.7);
+    --toon-card-bg:         rgba(42, 44, 54, 0.70);
+    --toon-card-header-bg:  rgba(52, 54, 66, 0.45);
+    --toon-footer-bg:       rgba(18, 19, 24, 0.7);
+
+    /* 枠・罫線 */
+    --toon-border:          #2c2e36;
+    --toon-border-card:     #26272f;
+    --toon-divider:         #2e3038;
+    --toon-border-glass:    rgba(255, 255, 255, 0.06);
+
+    /* コントロール地・トラック */
+    --toon-track-off:       #33353e;
+    --toon-control-off:     #34363f;
+    --toon-input-bg:        #15161b;
+    --toon-pad-bg:          #16171c;
+    --toon-pad-grid:        #23252d;
+    --toon-knob:            #f3f4f7;
+
+    /* テキスト */
+    --toon-text-strong:     #e6e8ee;
+    --toon-text-title:      #eceef2;
+    --toon-text-label:      #c2c4cc;
+    --toon-text-muted:      #9a9ca3;
+    --toon-text-mono:       #8a8c93;
+    --toon-text-caption:    #5c5e68;
+    --toon-text-faint:      #6a6c76;
+    --toon-dot-off:         #4a4c54;
+    --toon-preview-label:   #d6d6da;
+}
+
+
+/* ============================================================
+ *  ルート -- フルスクリーンのコンテナ
+ * ============================================================ */
+#toon-app {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    picking-mode: ignore;
+}
+
+/* ============================================================
+ *  パネル本体（フロート型）
+ * ============================================================ */
+#toon-panel {
+    position: absolute;
+    left: 24px;
+    top: 56px;
+    width: 362px;
+    max-height: 760px;
+    min-height: 300px;
+    picking-mode: position;
+}
+
+.toon-panel__frame {
+    flex-grow: 1;
+    background-color: var(--toon-panel-bg);
+    border-width: 1px;
+    border-color: var(--toon-border);
+    border-radius: 12px;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+
+/* ============================================================
+ *  タイトルバー
+ * ============================================================ */
+.toon-titlebar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 8px;
+    background-color: var(--toon-title-bg);
+    border-bottom-width: 1px;
+    border-bottom-color: var(--toon-border-glass);
+    picking-mode: position;
+    flex-shrink: 0;
+}
+
+.toon-titlebar__brand {
+    flex-direction: row;
+    align-items: center;
+}
+
+.toon-titlebar__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background-color: var(--toon-accent);
+    margin-right: 5px;
+    flex-shrink: 0;
+    translate: 2 1px;
+}
+
+.toon-titlebar__title {
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    -unity-font-style: bold;
+    font-size: 14px;
+    letter-spacing: -5px;
+    color: var(--toon-text-title);
+}
+
+.toon-titlebar__hint {
+    -unity-font: url("./Fonts/JetBrainsMono-Regular.ttf");
+    font-size: 10px;
+    color: var(--toon-text-caption);
+}
+
+
+/* ============================================================
+ *  スクロール領域
+ * ============================================================ */
+.toon-scroll {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.toon-scroll .unity-scroll-view__content-container {
+    padding: 10px;
+}
+
+.toon-scroll .unity-scroller--vertical {
+    width: 6px;
+}
+.toon-scroll .unity-scroller--vertical .unity-base-slider__dragger {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    width: 4px;
+    margin-left: 1px;
+}
+.toon-scroll .unity-scroller--vertical .unity-base-slider__tracker {
+    background-color: transparent;
+}
+.toon-scroll .unity-scroller--vertical .unity-repeat-button {
+    display: none;
+}
+
+
+/* ============================================================
+ *  セクション（折りたたみカード）
+ * ============================================================ */
+.toon-section {
+    background-color: var(--toon-card-bg);
+    border-width: 1px;
+    border-color: var(--toon-border-card);
+    border-radius: 9px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.toon-section__header {
+    flex-direction: row;
+    align-items: center;
+    padding: 3px 10px;
+    background-color: var(--toon-card-header-bg);
+    picking-mode: position;
+}
+
+.toon-section__body {
+    padding: 8px 12px 12px;
+}
+
+
+/* ============================================================
+ *  行コンポーネント
+ * ============================================================ */
+.toon-row {
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.toon-row__label {
+    width: 80px;
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    font-size: 12px;
+    color: var(--toon-text-label);
+    flex-shrink: 0;
+}
+
+
+/* ============================================================
+ *  フッタ
+ * ============================================================ */
+.toon-footer {
+    flex-direction: column;
+    padding: 10px 12px 12px;
+    background-color: var(--toon-footer-bg);
+    border-top-width: 1px;
+    border-top-color: var(--toon-border-card);
+    flex-shrink: 0;
+}
+
+
+/* ============================================================
+ *  ボタン共通
+ * ============================================================ */
+.toon-btn--primary {
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    -unity-font-style: bold;
+    font-size: 13px;
+    color: var(--toon-accent-ink);
+    background-color: var(--toon-accent);
+    border-width: 0;
+    border-radius: 8px;
+    padding: 8px 0;
+    -unity-text-align: middle-center;
+    transition-property: background-color;
+    transition-duration: 0.15s;
+}
+
+.toon-btn--primary:hover {
+    background-color: var(--toon-accent-hover);
+}
+
+.toon-btn--primary:disabled {
+    opacity: 0.4;
+    picking-mode: ignore;
+}
+
+.toon-btn--secondary {
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    -unity-font-style: bold;
+    font-size: 13px;
+    color: var(--toon-text-label);
+    background-color: var(--toon-control-off);
+    border-width: 0;
+    border-radius: 8px;
+    padding: 8px 0;
+    margin-bottom: 8px;
+    -unity-text-align: middle-center;
+    transition-property: background-color;
+    transition-duration: 0.15s;
+}
+
+.toon-btn--secondary:hover {
+    background-color: #3e404a;
+}
+
+.toon-btn--secondary:disabled {
+    opacity: 0.4;
+    picking-mode: ignore;
+}
+
+
+/* ============================================================
+ *  セクションヘッダ詳細
+ * ============================================================ */
+
+.toon-foldable__caret {
+    font-size: 10px;
+    color: var(--toon-text-muted);
+    width: 16px;
+    -unity-text-align: middle-center;
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+
+.toon-section__title {
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    -unity-font-style: bold;
+    font-size: 13px;
+    letter-spacing: -11px;
+    color: var(--toon-text-strong);
+    margin-right: 6px;
+}
+
+.toon-section__subtitle {
+    -unity-font: url("./Fonts/JetBrainsMono-Regular.ttf");
+    font-size: 10px;
+    color: var(--toon-text-muted);
+}
+
+.toon-section__auto-dot {
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    font-size: 10px;
+    color: var(--toon-dot-off);
+}
+.toon-section__auto-dot--active {
+    color: var(--toon-accent);
+}
+
+.toon-section__body--disabled {
+    opacity: 0.4;
+    picking-mode: ignore;
+}
+
+/* .toon-toggle には :disabled ルール無しなので SetEnabled(false) 単独では見た目が変わらない。
+ * opacity グレーアウトのフックとしてこのクラスを付与する。
+ * クリックブロックは対象要素への SetEnabled(false) で構造的に成立。
+ *
+ * 付与対象：
+ *   - 影1「影の読み込み」トグル → トグル本体に付与
+ *     行に付けると隣のインライン読み込みボタンまで沈むので導線が死ぬ */
+.toon-row--disabled {
+    opacity: 0.4;
+}
+
+/* Toggle 行のインライン読み込みボタン（影1「影の読み込み」）。
+ * .toon-btn--secondary のトーンに合わせた中間サイズ。flex-grow で残り幅を取り、
+ * トグルを行の右端へ押し出す（ラベル｜ボタン｜トグルの並び）。 */
+.toon-row__inline-btn {
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    font-size: 11px;
+    color: var(--toon-text-label);
+    background-color: var(--toon-control-off);
+    border-width: 0;
+    border-radius: 6px;
+    padding: 4px 10px;
+    margin: 0 8px 0 0;
+    -unity-text-align: middle-center;
+    flex-grow: 1;
+    transition-property: background-color;
+    transition-duration: 0.15s;
+}
+
+.toon-row__inline-btn:hover {
+    background-color: #3e404a;
+}
+
+.toon-row__inline-btn:disabled {
+    opacity: 0.4;
+    picking-mode: ignore;
+}
+
+
+/* --- 行バリアント --- */
+
+.toon-row--slider {
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.toon-row--color {
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.toon-row--point {
+    flex-direction: column;
+    padding: 5px 0;
+}
+
+.toon-row--segment {
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.toon-row--subhead {
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 0 4px;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--toon-divider);
+    margin-bottom: 4px;
+}
+
+
+/* --- LabeledSlider --- */
+
+.toon-slider {
+    flex-grow: 1;
+    height: 22px;
+    margin: 0 8px;
+    position: relative;
+    overflow: visible;
+}
+
+.toon-slider__track-bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    translate: 0 -50%;
+    height: 4px;
+    background-color: var(--toon-track-off);
+    border-radius: 0;
+    picking-mode: ignore;
+}
+
+.toon-slider__fill {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    translate: 0 -50%;
+    height: 4px;
+    background-color: var(--toon-accent);
+    border-radius: 0;
+    picking-mode: ignore;
+}
+
+.toon-slider__thumb {
+    position: absolute;
+    top: 50%;
+    translate: -50% -50%;
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    background-color: var(--toon-knob);
+    picking-mode: ignore;
+}
+
+.toon-num {
+    width: 54px;
+    height: 22px;
+    -unity-text-align: middle-right;
+    -unity-font: url("./Fonts/JetBrainsMono-Regular.ttf");
+    font-size: 12px;
+    color: var(--toon-text-strong);
+    background-color: var(--toon-input-bg);
+    border-width: 1px;
+    border-color: var(--toon-divider);
+    border-radius: 5px;
+    padding: 2px 7px;
+    flex-shrink: 0;
+}
+
+.toon-num:focus {
+    border-color: var(--toon-accent);
+}
+
+.toon-num .unity-text-field__label {
+    display: none;
+}
+
+.toon-num .unity-text-field__input,
+.toon-num .unity-base-text-field__input,
+.toon-num .unity-base-field__input {
+    -unity-text-align: middle-right;
+    background-color: var(--toon-input-bg);
+    color: var(--toon-text-strong);
+    border-width: 0;
+    padding: 0 4px;
+    margin: 0;
+    border-radius: 4px;
+}
+
+.toon-num .unity-text-element {
+    color: var(--toon-text-strong);
+}
+
+
+/* --- SegmentedControl --- */
+
+.toon-seg {
+    flex-direction: row;
+    flex-grow: 1;
+    flex-shrink: 1;
+    column-gap: 2px;
+    margin-left: -12px;
+}
+
+.toon-seg__btn {
+    flex-grow: 1;
+    margin: 2;
+    padding: 4px 3px;
+    border-radius: 6px;
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    font-size: 10px;
+    background-color: var(--toon-input-bg);
+    border-width: 1px;
+    border-color: var(--toon-control-off);
+    color: var(--toon-text-muted);
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+}
+
+.toon-seg__btn--active {
+    background-color: var(--toon-accent);
+    border-color: var(--toon-accent);
+    color: var(--toon-accent-ink);
+    -unity-font-style: bold;
+    letter-spacing: -8px;
+}
+
+
+/* --- PresetButton --- */
+
+.toon-preset__list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 4px;
+    column-gap: 4px;
+}
+
+.toon-preset__btn {
+    margin: 0;
+    padding: 4px 6px;
+    border-radius: 6px;
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    font-size: 10px;
+    background-color: var(--toon-input-bg);
+    border-width: 1px;
+    border-color: var(--toon-control-off);
+    color: var(--toon-text-muted);
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    flex-grow: 0;
+    flex-shrink: 0;
+    min-width: 72px;
+}
+
+.toon-preset__btn--active {
+    background-color: var(--toon-accent);
+    border-color: var(--toon-accent);
+    color: var(--toon-accent-ink);
+    -unity-font-style: bold;
+}
+
+.toon-preset__action-row {
+    flex-direction: row;
+    margin-top: 4px;
+    column-gap: 4px;
+}
+
+.toon-preset__action-btn {
+    margin: 0;
+    padding: 4px 8px;
+    border-radius: 6px;
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    font-size: 10px;
+    background-color: transparent;
+    border-width: 1px;
+    border-color: var(--toon-control-off);
+    color: var(--toon-text-muted);
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.toon-preset__action-btn:hover {
+    border-color: var(--toon-accent);
+    color: var(--toon-text-label);
+}
+
+.toon-preset__action-btn:disabled {
+    opacity: 0.35;
+}
+
+
+/* --- Modal --- */
+
+.toon-modal__overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    picking-mode: position;
+}
+
+.toon-modal__panel {
+    background-color: rgba(24, 25, 38, 0.95);
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: var(--toon-border-glass);
+    padding: 16px 20px;
+    min-width: 260px;
+    max-width: 320px;
+}
+
+.toon-modal__title {
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    -unity-font-style: bold;
+    font-size: 13px;
+    color: var(--toon-text-title);
+    margin-bottom: 12px;
+}
+
+.toon-modal__message {
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    font-size: 11px;
+    color: var(--toon-text-label);
+    margin-bottom: 12px;
+    white-space: normal;
+}
+
+.toon-modal__text-field {
+    height: 28px;
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    font-size: 11px;
+    color: var(--toon-text-strong);
+    background-color: var(--toon-input-bg);
+    border-width: 1px;
+    border-color: var(--toon-divider);
+    border-radius: 6px;
+    padding: 2px 8px;
+    margin-bottom: 12px;
+}
+
+.toon-modal__text-field:focus {
+    border-color: var(--toon-accent);
+}
+
+.toon-modal__text-field .unity-text-field__label {
+    display: none;
+}
+.toon-modal__text-field .unity-text-field__input,
+.toon-modal__text-field .unity-base-text-field__input,
+.toon-modal__text-field .unity-base-field__input {
+    background-color: var(--toon-input-bg);
+    color: var(--toon-text-strong);
+    border-width: 0;
+    padding: 0 4px;
+    margin: 0;
+    border-radius: 5px;
+}
+
+.toon-modal__btn-row {
+    flex-direction: row;
+    justify-content: flex-end;
+    column-gap: 8px;
+}
+
+.toon-modal__btn {
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    font-size: 11px;
+    padding: 5px 14px;
+    border-radius: 6px;
+    border-width: 1px;
+    -unity-text-align: middle-center;
+}
+
+.toon-modal__btn--cancel {
+    background-color: transparent;
+    border-color: var(--toon-control-off);
+    color: var(--toon-text-muted);
+}
+.toon-modal__btn--cancel:hover {
+    border-color: var(--toon-text-muted);
+}
+
+.toon-modal__btn--primary {
+    background-color: var(--toon-accent);
+    border-color: var(--toon-accent);
+    color: var(--toon-accent-ink);
+    -unity-font-style: bold;
+}
+.toon-modal__btn--primary:hover {
+    background-color: var(--toon-accent-hover);
+}
+
+.toon-modal__btn--danger {
+    background-color: #e05252;
+    border-color: #e05252;
+    color: #fff;
+    -unity-font-style: bold;
+}
+.toon-modal__btn--danger:hover {
+    background-color: #c94444;
+}
+
+
+/* --- ToggleSwitch --- */
+
+.toon-toggle {
+    width: 34px;
+    height: 19px;
+    flex-shrink: 0;
+}
+
+.toon-toggle--sub {
+    width: 30px;
+    height: 17px;
+}
+
+.toon-toggle__track {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background-color: var(--toon-control-off);
+    transition-property: background-color;
+    transition-duration: 0.15s;
+    picking-mode: position;
+}
+
+.toon-toggle__knob {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 999px;
+    background-color: var(--toon-knob);
+    top: 2px;
+    left: 2px;
+    transition-property: left;
+    transition-duration: 0.15s;
+    picking-mode: ignore;
+}
+
+.toon-toggle--sub .toon-toggle__knob {
+    width: 13px;
+    height: 13px;
+}
+
+.toon-toggle--on .toon-toggle__track {
+    background-color: var(--toon-accent);
+}
+
+.toon-toggle--on .toon-toggle__knob {
+    left: 17px;
+}
+
+.toon-toggle--on.toon-toggle--sub .toon-toggle__knob {
+    left: 15px;
+}
+
+
+/* --- Vector2Pad --- */
+
+.toon-pad__top-row {
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.toon-pad__axis-label {
+    -unity-font: url("./Fonts/JetBrainsMono-Regular.ttf");
+    font-size: 11px;
+    color: var(--toon-text-muted);
+    margin-right: 4px;
+    margin-left: 8px;
+}
+
+.toon-pad__field {
+    width: 48px;
+    height: 22px;
+    -unity-text-align: middle-right;
+    -unity-font: url("./Fonts/JetBrainsMono-Regular.ttf");
+    font-size: 12px;
+    color: var(--toon-text-strong);
+    background-color: var(--toon-input-bg);
+    border-width: 1px;
+    border-color: var(--toon-divider);
+    border-radius: 5px;
+    padding: 2px 5px;
+    flex-shrink: 0;
+}
+
+.toon-pad__field:focus {
+    border-color: var(--toon-accent);
+}
+
+.toon-pad__field .unity-text-field__label {
+    display: none;
+}
+.toon-pad__field .unity-text-field__input,
+.toon-pad__field .unity-base-text-field__input,
+.toon-pad__field .unity-base-field__input {
+    -unity-text-align: middle-right;
+    background-color: var(--toon-input-bg);
+    color: var(--toon-text-strong);
+    border-width: 0;
+    padding: 0 4px;
+    margin: 0;
+    border-radius: 4px;
+}
+
+.toon-pad__field .unity-text-element {
+    color: var(--toon-text-strong);
+}
+
+.toon-pad {
+    width: 148px;
+    height: 148px;
+    border-radius: 7px;
+    background-color: var(--toon-pad-bg);
+    border-width: 1px;
+    border-color: var(--toon-control-off);
+    margin-left: 88px;
+    position: relative;
+    overflow: visible;
+}
+
+.toon-pad__dot {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    background-color: var(--toon-accent);
+    border-width: 2px;
+    border-color: white;
+    translate: -50% -50%;
+    picking-mode: ignore;
+}
+
+
+/* --- カラー行 --- */
+
+.toon-swatch {
+    width: 46px;
+    height: 24px;
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.18);
+    flex-shrink: 0;
+}
+
+.toon-color__hex {
+    -unity-font: url("./Fonts/JetBrainsMono-Regular.ttf");
+    font-size: 12px;
+    color: var(--toon-text-mono);
+    margin-left: 8px;
+}
+
+
+/* --- サブ見出し行 --- */
+
+.toon-subhead__label {
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    -unity-font-style: bold;
+    font-size: 12px;
+    color: var(--toon-text-muted);
+    flex-grow: 1;
+}
+
+
+/* ============================================================
+ *  RuntimeColorPicker
+ * ============================================================ */
+
+.toon-colorpicker {
+    position: absolute;
+    width: 210px;
+    padding: 12px;
+    background-color: #1a1b21;
+    border-width: 1px;
+    border-color: var(--toon-border);
+    border-radius: 11px;
+    picking-mode: position;
+    flex-direction: column;
+}
+
+.toon-cp__sv {
+    width: 186px;
+    height: 130px;
+    border-radius: 7px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    picking-mode: position;
+    position: relative;
+}
+
+.toon-cp__sv-knob {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background-color: white;
+    border-width: 1.5px;
+    border-color: rgba(0, 0, 0, 0.4);
+    translate: -50% -50%;
+    picking-mode: ignore;
+}
+
+.toon-cp__hue {
+    width: 186px;
+    height: 14px;
+    border-radius: 0;
+    overflow: hidden;
+    margin-bottom: 10px;
+    picking-mode: position;
+    position: relative;
+}
+
+.toon-cp__hue-knob {
+    position: absolute;
+    width: 6px;
+    height: 18px;
+    top: -2px;
+    border-radius: 3px;
+    background-color: white;
+    border-width: 1.5px;
+    border-color: rgba(0, 0, 0, 0.4);
+    translate: -50% 0;
+    picking-mode: ignore;
+}
+
+.toon-cp__hex-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.toon-cp__hash {
+    -unity-font: url("./Fonts/JetBrainsMono-Regular.ttf");
+    font-size: 12px;
+    color: var(--toon-text-mono);
+    margin-right: 4px;
+}
+
+.toon-cp__hex-field {
+    flex-grow: 1;
+    height: 24px;
+    -unity-font: url("./Fonts/JetBrainsMono-Regular.ttf");
+    font-size: 12px;
+    color: var(--toon-text-strong);
+    background-color: var(--toon-input-bg);
+    border-width: 1px;
+    border-color: var(--toon-divider);
+    border-radius: 5px;
+    padding: 2px 7px;
+}
+
+.toon-cp__hex-field:focus {
+    border-color: var(--toon-accent);
+}
+
+.toon-cp__hex-field .unity-text-field__label {
+    display: none;
+}
+.toon-cp__hex-field .unity-text-field__input,
+.toon-cp__hex-field .unity-base-text-field__input,
+.toon-cp__hex-field .unity-base-field__input {
+    background-color: var(--toon-input-bg);
+    color: var(--toon-text-strong);
+    border-width: 0;
+    padding: 0 4px;
+    margin: 0;
+    border-radius: 4px;
+}
+
+.toon-cp__done-btn {
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    -unity-font-style: bold;
+    font-size: 12px;
+    color: var(--toon-accent-ink);
+    background-color: var(--toon-accent);
+    border-width: 0;
+    border-radius: 6px;
+    padding: 5px 0;
+    -unity-text-align: middle-center;
+    transition-property: background-color;
+    transition-duration: 0.15s;
+}
+
+.toon-cp__done-btn:hover {
+    background-color: var(--toon-accent-hover);
+}
+
+
+/* ============================================================
+ *  Toast通知 -- 
+ * ============================================================ */
+
+.toon-toast__layer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    picking-mode: ignore;
+}
+
+.toon-toast__item {
+    position: absolute;
+    min-width: 400px;
+    height: 36px;
+    border-radius: 6px;
+    left: 50%;
+    translate: -50% 0;
+    align-items: center;
+    justify-content: center;
+    picking-mode: ignore;
+    transition-property: opacity;
+    transition-duration: 0.1s;
+}
+
+.toon-toast__text {
+    -unity-font: url("./Fonts/NotoSansJP-Regular.ttf");
+    font-size: 14px;
+    color: #ffffff;
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    picking-mode: ignore;
+}
+
+.toon-toast__item--info    { }
+.toon-toast__item--success { }
+.toon-toast__item--warning { }
+.toon-toast__item--error   { }

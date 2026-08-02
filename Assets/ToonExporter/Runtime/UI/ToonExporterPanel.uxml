@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ToonExporterPanel.uxml － フロートパネルのガワ
+    タイトルバー / スクロール（セクション群） / フッタ（画像読込 2ボタン + 書き出し）
+-->
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xsi="http://www.w3.org/2001/XMLSchema-instance"
+         engine="UnityEngine.UIElements"
+         noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd">
+
+    <!-- USS読み込み -->
+    <Style src="ToonExporterPanel.uss" />
+
+    <!-- ルート：フルスクリーンコンテナ -->
+    <ui:VisualElement name="toon-app">
+
+        <!-- パネル本体 -->
+        <ui:VisualElement name="toon-panel">
+            <ui:VisualElement class="toon-panel__frame">
+
+                <!-- タイトルバー：ドラッグ移動の掴み領域 -->
+                <ui:VisualElement class="toon-titlebar" name="toon-titlebar">
+                    <ui:VisualElement class="toon-titlebar__brand">
+                        <ui:VisualElement class="toon-titlebar__dot" />
+                        <ui:Label class="toon-titlebar__title" text="トゥーンレイヤー書き出し" />
+                    </ui:VisualElement>
+                    <ui:Label class="toon-titlebar__hint" text="[ H ] メニュー表示/非表示" />
+                </ui:VisualElement>
+
+                <!-- スクロール領域：セクション群を動的に構築 -->
+                <ui:ScrollView class="toon-scroll" name="toon-scroll"
+                               vertical-scroller-visibility="Auto"
+                               horizontal-scroller-visibility="Hidden" />
+
+                <!-- フッタ：画像読込（2ボタン）＋書き出し -->
+                <ui:VisualElement class="toon-footer" name="toon-footer">
+                    <ui:Button name="toon-btn-load-main"   class="toon-btn--secondary" text="イラストを読み込み" />
+                    <ui:Button name="toon-btn-load-normal" class="toon-btn--secondary" text="ノーマルを読み込み" />
+                    <ui:Button name="toon-btn-export"      class="toon-btn--primary"   text="画像を書き出し" />
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>
