@@ -5,7 +5,7 @@
 
 書き出した PNG は Photoshop や Clip Studio Paint等のペイントソフトに持っていって各レイヤーを合成し直します。
 
-![デモ](https://github.com/user-attachments/assets/dda46e96-ef11-4a33-a3e7-c1df1224d969)
+https://github.com/user-attachments/assets/dda46e96-ef11-4a33-a3e7-c1df1224d969
 
 ---
 
